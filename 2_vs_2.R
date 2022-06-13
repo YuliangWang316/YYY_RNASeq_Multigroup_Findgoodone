@@ -1,17 +1,17 @@
 library(tidyverse)
 library(DESeq2)
 #import data
-setwd("D:/yyy/Merge_HUADA_YK_HUADA2/")
+setwd("E:/YYY_HUADA/counts/")
 mycounts<-read.table("Mergedata.txt",header = TRUE,row.names = 1,sep ="\t" )
 mycounts_new<-mycounts
 a<-colnames(mycounts)
 c<-data.frame(0,0,0,0,0,0)
 colnames(c)<-c("j","k","p","q","y","z")
 
-for (j in 1:12) {
-  for (k in (j+1):13) {
-    for (p in 14:32) {
-      for (q in (p+1):33) {
+for (j in 1:7) {
+  for (k in (j+1):8) {
+    for (p in 9:18) {
+      for (q in (p+1):19) {
         mycounts<-mycounts_new[,c(a[j],a[k],a[p],a[q])]
         condition<-factor(c(rep("KO",2),rep("WT",2)),levels = c("WT","KO"))
         colData<-data.frame(row.names = colnames(mycounts),condition)
