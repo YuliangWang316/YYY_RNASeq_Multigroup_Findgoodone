@@ -1,0 +1,28 @@
+library(dplyr)
+setwd("D:/yyy/Merge_HUADA_YK_HUADA2/3vs3/txt1")
+a<-list.files("D:/yyy/Merge_HUADA_YK_HUADA2/3vs3/txt1/")
+for (i in 1:length(a)) {
+  b<-read.table(a[i],sep = "\t",header = TRUE,row.names = 1)
+  c<-filter_all(b,all_vars(.>=5))
+  d<-data.frame(rep("NA",length(rownames(c))))
+  e<-data.frame(rownames(c))
+  colnames(e)<-"Gene_Symbol"
+  colnames(d)<-"Gene_Description"
+  rownames(d)<-rownames(c)
+  rownames(e)<-rownames(c)
+  g<-cbind(e,d,c)
+  remove(b,c,d,e)
+  g$Gene_Symbol<-toupper(g$Gene_Symbol)
+  b<-as.data.frame(t(as.data.frame(colnames(g))))
+  colnames(b)<-colnames(g)
+  c<-rbind(b,g)
+  d<-as.data.frame(t(as.data.frame(c(length(rownames(g)),"6",rep("",6)))))
+  colnames(d)<-colnames(c)
+  e<-rbind(d,c)
+  remove(g,b,c,d)
+  b<-as.data.frame(t(as.data.frame(c("#1.2",rep("",7)))))
+  colnames(b)<-colnames(e)
+  f<-rbind(b,e)
+  remove(b,e)
+  write.table(f,paste0("D:/yyy/Merge_HUADA_YK_HUADA2/3vs3/gct1/",a[i],"_2.gct"),sep = "\t",row.names = FALSE,col.names = FALSE)
+}
