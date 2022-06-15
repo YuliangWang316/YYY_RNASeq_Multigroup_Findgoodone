@@ -30,5 +30,10 @@ for (i in 1:length(a)) {
   colnames(b)<-colnames(e)
   f<-rbind(b,e)
   remove(b,e)
+  for (b in 1:length(rownames(f))) {
+    for (c in 1:length(colnames(f))) {
+      f[b,c]<-gsub('["]', '', f[b,c])
+    }
+  }
   write.table(f,paste0("D:/yyy/Merge_HUADA_YK_HUADA2/3vs3/gct2/",a[i],"_2_TMM.gct"),sep = "\t",row.names = FALSE,col.names = FALSE)
 }
